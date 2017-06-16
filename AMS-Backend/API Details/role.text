@@ -1,0 +1,16 @@
+ROLE of User API LIST 
+
+* Insert Role of user into database
+- https://afternoon-oasis-93157.herokuapp.com/role/insert/Admin
+
+* Display All Role from database 
+- https://afternoon-oasis-93157.herokuapp.com/role/search
+
+* Display Role by id from database
+-https://afternoon-oasis-93157.herokuapp.com/role/search/5
+
+* Delete Role by id from database
+-https://afternoon-oasis-93157.herokuapp.com/role/delete/4
+
+* Update Role by id with new value in to database
+-https://afternoon-oasis-93157.herokuapp.com/role/update/5/newrole
