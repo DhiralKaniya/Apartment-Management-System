@@ -6,3 +6,6 @@ Apartment Management System basically manage the apartment at one place. This ap
 ### Back-end Tools and Technologies
 
 1) [Node-js](https://nodejs.org/en/)
+2) Database :- [PostgreSql](https://www.postgresql.org/)
+3) Web-Hosting Server :- [Heroku](https://dashboard.heroku.com/)
+4) Database Hosting Server :- [Amazonawas](https://aws.amazon.com/)
