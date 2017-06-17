@@ -1,0 +1,12 @@
+1)Group Insert
+
+-https://afternoon-oasis-93157.herokuapp.com/Group/insert/5eb63bbbe01eeed093cb22bb8f5acdc3/3-bhk
+parameter requre after insert
+    -apikey
+    -group name
+
+2)Group Display All
+
+-https://afternoon-oasis-93157.herokuapp.com/Group/search/5eb63bbbe01eeed093cb22bb8f5acdc3
+parameter requre after search
+    -apikey

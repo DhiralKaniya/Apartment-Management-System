@@ -1,0 +1,37 @@
+1 :- User Registration 
+-https://afternoon-oasis-93157.herokuapp.com/user/registration/5eb63bbbe01eeed093cb22bb8f5acdc3/dhiral/1234/dhiral/kaniya/9033250554/N.A/male/5/A-201/dhiralkaniya3146@gmail.com/1/1
+parameter sequence after registration are as follow
+    -apikey
+    -username
+    -pin
+    -firstname
+    -lastname
+    -contactnum1
+    -contactnum2
+    -gender
+    -no of member
+    -flat number
+    -email id
+    -secretaryid
+    -groupid
+
+(status and token number has been generated automatically)
+
+2 :- User Data Fetch
+-https://afternoon-oasis-93157.herokuapp.com/user/checkuser/5eb63bbbe01eeed093cb22bb8f5acdc3/dhiral/1234
+paramter sequence after checkuser are as follow
+    -apikey 
+    -username
+    -pin
+
+3 :- Block User
+-https://afternoon-oasis-93157.herokuapp.com/user/block/5eb63bbbe01eeed093cb22bb8f5acdc3/dhiral
+parameter sequence after block 
+    -apikey
+    -username
+
+4 :- Active User
+-https://afternoon-oasis-93157.herokuapp.com/user/active/5eb63bbbe01eeed093cb22bb8f5acdc3/dhiral
+parameter sequence after active 
+    -apikey
+    -username
