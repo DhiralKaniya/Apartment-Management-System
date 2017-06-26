@@ -35,3 +35,9 @@ parameter sequence after block
 parameter sequence after active 
     -apikey
     -username
+
+5 :- Update User
+-url :- https://afternoon-oasis-93157.herokuapp.com/user/update/5eb63bbbe01eeed093cb22bb8f5acdc3/48/dhiral/12345/Dhiral/kaniya/9033250554/N.A/male/5/A-201/dhiralkaniya3146@gmail.com/2
+
+6 :- User from secretaryid
+-https://afternoon-oasis-93157.herokuapp.com/user/secfind/5eb63bbbe01eeed093cb22bb8f5acdc3/1
