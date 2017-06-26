@@ -43,5 +43,29 @@ var sser = function(request, response) {
         response.json(status);
     });
 };
+
+var scheck = function(request, response) {
+    var secid = request.params.secid;
+    var secpin = request.params.secpin;
+    var query = "select * from tbl_secretary where secretaryid = " + secid + " AND pin =" + secpin + "";
+    console.log(query);
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                'status': false,
+                'err': 'error in the check secretary'
+            }
+            response.json(status);
+        } else {
+            var status = {
+                'status': true,
+                'user': result.rows[0]
+            }
+            response.json(status);
+        }
+    });
+};
+
 module.exports.secretaryInsert = sins;
 module.exports.secretarySearch = sser;
+module.exports.secretaryCheck = scheck;
