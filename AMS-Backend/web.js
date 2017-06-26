@@ -17,12 +17,44 @@ app.get('/apicheck/:apikey', function(request, response) {
 
 //Users API
 //registration
-app.get('/user/registration/:apikey/:username/:pin/:firstname/:lastname/:contact1/:contact2/:gender/:member/:flatno/:email/:secid/:groupid  ', function(request, response) {
+app.get('/user/registration/:apikey/:username/:pin/:firstname/:lastname/:contact1/:contact2/:gender/:member/:flatno/:email/:secid/:groupid', function(request, response) {
     var value = request.params.apikey;
     apiCheck.checkAPI(value, function(res) {
         if (res) {
             var users = require('./User/user');
             users.registration(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//update
+app.get('/user/update/:apikey/:userid/:username/:pin/:firstname/:lastname/:contact1/:contact2/:gender/:member/:flatno/:email/:groupid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var users = require('./User/user');
+            users.updateuser(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//secretary find user
+app.get('/user/secfind/:apikey/:secid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var users = require('./User/user');
+            users.secretaryuser(request, response);
         } else {
             var status = {
                 'status': res,
@@ -49,7 +81,7 @@ app.get('/user/checkuser/:apikey/:username/:pin', function(request, response) {
     });
 });
 //block user
-app.get('/user/block/:apikey/:username', function(request, response) {
+app.get('/user/block/:apikey/:userid', function(request, response) {
     var value = request.params.apikey;
     apiCheck.checkAPI(value, function(res) {
         if (res) {
@@ -65,7 +97,7 @@ app.get('/user/block/:apikey/:username', function(request, response) {
     });
 });
 //block user
-app.get('/user/active/:apikey/:username', function(request, response) {
+app.get('/user/active/:apikey/:userid', function(request, response) {
     var value = request.params.apikey;
     apiCheck.checkAPI(value, function(res) {
         if (res) {
@@ -140,6 +172,22 @@ app.get('/Secretary/search/:apikey/', function(request, response) {
         if (res) {
             var Secretary = require('./Secretary/secretary.js');
             Secretary.secretarySearch(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//secretary check 
+app.get('/Secretary/check/:apikey/:secid/:secpin', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Secretary = require('./Secretary/secretary.js');
+            Secretary.secretaryCheck(request, response);
         } else {
             var status = {
                 'status': res,
