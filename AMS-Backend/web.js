@@ -234,8 +234,103 @@ app.get('/role/:type/:id/:value', function(request, response) {
         response.send('invalid');
     }
 });
-
-
+//Maintenance
+//Generate Maintenance
+app.get('/Maintenace/generate/:apikey/:secid/:groupid/:amount/:duration', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.generateMaintenance(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//secretary Maintenance
+app.get('/Maintenace/secretary/history/:apikey/:secid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.secretaryMaintenanceHistoryMain(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//user list according to the maintenance id
+app.get('/Maintenace/secretary/userList/:apikey/:secid/:mid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.secretaryMaintenanceSearchUser(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//take maintenance 
+app.get('/Maintenace/secretary/takeMaintenance/:apikey/:mid/:userid/:paidby', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.takeMaintenance(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//user Display maintenance 
+app.get('/Maintenace/user/listMaintenance/:apikey/:userid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.userMaintenance(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
+//user Unpaid Maintenance 
+app.get('/Maintenace/user/unpaid/:apikey/:userid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var Maintenance = require('./Maintenance/maintenance.js');
+            Maintenance.userUnpaidMaintenance(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
 app.set('port', (process.env.PORT || 5050));
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));

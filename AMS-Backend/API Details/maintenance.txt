@@ -1,0 +1,18 @@
+
+1) Generate Maintenance
+    -https://afternoon-oasis-93157.herokuapp.com/Maintenace/generate/5eb63bbbe01eeed093cb22bb8f5acdc3/1/1/2000/july,2017
+
+2) Secretary History
+    A) List All Maintenance
+        -https://afternoon-oasis-93157.herokuapp.com/Maintenace/secretary/history/5eb63bbbe01eeed093cb22bb8f5acdc3/1
+    B) List All User according to the Maintenance
+        -https://afternoon-oasis-93157.herokuapp.com/Maintenace/secretary/userList/5eb63bbbe01eeed093cb22bb8f5acdc3/secid/mid
+
+3) Secretary Take Maintenance
+    - https://afternoon-oasis-93157.herokuapp.com/Maintenace/secretary/takeMaintenance/5eb63bbbe01eeed093cb22bb8f5acdc3/7/48/cash
+
+4) User Maintenace List
+    -https://afternoon-oasis-93157.herokuapp.com/Maintenace/user/listMaintenance/5eb63bbbe01eeed093cb22bb8f5acdc3/48
+    
+5) User Unpaid Maintenace List
+    -https://afternoon-oasis-93157.herokuapp.com/Maintenace/user/unpaid/5eb63bbbe01eeed093cb22bb8f5acdc3/48

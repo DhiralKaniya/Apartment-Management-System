@@ -60,3 +60,21 @@ CREATE TABLE tbl_user_secretary_group(
 	secretaryid integer REFERENCES tbl_secretary,
 	groupid integer REFERENCES tbl_group
 );
+
+//tbl_maintenance TABLE
+CREATE TABLE tbl_maintenance(
+	maintenanceid SERIAL primary key,
+	secretaryid int references tbl_secretary(secretaryid),
+	groupid int references tbl_group(groupid),
+	amount int,
+	duration varchar(100),
+	status boolean
+);
+//Maintenance User id
+CREATE TABLE tbl_maintenance_user(
+	maintenanceid int references tbl_maintenance(maintenanceid),
+	userid int references tbl_user(userid),
+	status boolean,
+	paidby varchar(10),
+	primary key(maintenanceid,userid)
+);
