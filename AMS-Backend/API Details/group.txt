@@ -10,3 +10,6 @@ parameter requre after insert
 -https://afternoon-oasis-93157.herokuapp.com/Group/search/5eb63bbbe01eeed093cb22bb8f5acdc3
 parameter requre after search
     -apikey
+
+3) Group search by ID
+-https://afternoon-oasis-93157.herokuapp.com/Group/search/5eb63bbbe01eeed093cb22bb8f5acdc3/1

@@ -41,5 +41,25 @@ var gser = function(request, response) {
         response.json(status);
     });
 };
+var gname = function(request, response) {
+    var groupid = request.params.groupid
+    var query = "SELECT * FROM tbl_group  WHERE groupid = " + groupid + "";
+    client.query(query, function(err, result) {
+        if (err) {
+            var status = {
+                'status': false,
+                'error place': 'search by in groupid',
+                'error': err
+            }
+        } else {
+            var status = {
+                'status': true,
+                'group': result.rows
+            }
+        }
+        response.json(status);
+    });
+};
 module.exports.groupInsert = gins;
 module.exports.groupSearch = gser;
+module.exports.groupSearchById = gname;
