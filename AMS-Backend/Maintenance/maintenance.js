@@ -116,7 +116,7 @@ var takMaintenance = function(request, response) {
 };
 var userMaintenance = function(request, response) {
     var userid = request.params.userid;
-    var query = "SELECT tu.userid,tmu.maintenanceid,username,contact1,flat_no,status,paidby FROM tbl_maintenance_user tmu,tbl_user tu WHERE tu.userid=" + userid + " AND tu.userid = tmu.userid;"
+    var query = "SELECT tu.userid,tmu.maintenanceid,username,contact1,flat_no,tmu.status,paidby,tm.duration,tm.amount FROM tbl_maintenance_user tmu,tbl_maintenance tm,tbl_user tu WHERE tm.maintenanceid=tmu.maintenanceid AND tu.userid=" + userid + " AND tu.userid = tmu.userid;"
     client.query(query, function(err, result) {
         if (err) {
             var status = {
@@ -134,7 +134,7 @@ var userMaintenance = function(request, response) {
 };
 var userUnpiadMaitenance = function(request, response) {
     var userid = request.params.userid;
-    var query = "SELECT tu.userid,tmu.maintenanceid,username,contact1,flat_no,status,paidby FROM tbl_maintenance_user tmu,tbl_user tu WHERE tu.userid=48 AND tu.userid = tmu.userid AND status = false;";
+    var query = "SELECT tu.userid,tmu.maintenanceid,username,contact1,flat_no,tmu.status,paidby,tm.duration,tm.amount FROM tbl_maintenance_user tmu,tbl_maintenance tm,tbl_user tu WHERE tm.maintenanceid=tmu.maintenanceid AND tu.userid=" + userid + " AND tu.userid = tmu.userid AND tmu.status = false;";
     client.query(query, function(err, result) {
         if (err || result.rowCount <= 0) {
             var status = {
