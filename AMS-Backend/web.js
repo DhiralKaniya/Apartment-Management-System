@@ -147,6 +147,22 @@ app.get('/group/search/:apikey/', function(request, response) {
         }
     });
 });
+//search by Group id
+app.get('/group/search/:apikey/:groupid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var group = require('./Group/group.js');
+            group.groupSearchById(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
 
 //Secretary api
 //insert
@@ -331,7 +347,7 @@ app.get('/Maintenace/user/unpaid/:apikey/:userid', function(request, response) {
         }
     });
 });
-app.set('port', (process.env.PORT || 5050));
+app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
