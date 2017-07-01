@@ -234,6 +234,21 @@ var secUser = function(request, response) {
     });
 };
 
+var frgPas = function(request, response) {
+    var username = request.params.username;
+    var email = request.params.email;
+    var query = "";
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                'status': false,
+                'error': err
+            };
+            response.json(status);
+        }
+    });
+};
+module.exports.forgotPassword = frgPas;
 module.exports.blockuser = block;
 module.exports.checkuser = auth;
 module.exports.registration = reg;
