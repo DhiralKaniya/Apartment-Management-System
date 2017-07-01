@@ -78,7 +78,7 @@ var sechisMain = function(request, response) {
 var secHisUser = function(request, response) {
     var secid = request.params.secid;
     var maintenanceid = request.params.mid;
-    var query = "SELECT tm.maintenanceid,tu.userid,tu.username,tu.flat_no,tu.contact1,tmu.status,tu.isactive,tm.amount,tm.duration FROM tbl_maintenance tm , tbl_maintenance_user tmu, tbl_user tu WHERE tm.maintenanceid = tmu.maintenanceid AND tu.userid = tmu.userid AND tm.secretaryid = " + secid + " AND tmu.maintenanceid = " + maintenanceid + " ;";
+    var query = "SELECT tm.maintenanceid,tu.userid,tu.username,tu.flat_no,tu.contact1,tmu.status,tu.isactive,tm.amount,tm.duration,tmu.paidby FROM tbl_maintenance tm , tbl_maintenance_user tmu, tbl_user tu WHERE tm.maintenanceid = tmu.maintenanceid AND tu.userid = tmu.userid AND tm.secretaryid = " + secid + " AND tmu.maintenanceid = " + maintenanceid + " ;";
     client.query(query, function(err, result) {
         if (err || result.rowCount <= 0) {
             var status = {
