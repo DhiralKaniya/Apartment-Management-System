@@ -25,7 +25,7 @@ var genMain = function(request, response) {
                     response.json(status);
                 } else {
                     var maintenanceid = result.rows[0].maintenanceid;
-                    var query = "SELECT tsug.userid FROM tbl_user_secretary_group tsug,tbl_user tu WHERE secretaryid = " + secid + " AND tu.userid = tsug.userid and isactive = true;";
+                    var query = "SELECT tsug.userid FROM tbl_user_secretary_group tsug,tbl_user tu WHERE secretaryid = " + secid + " AND tu.userid = tsug.userid AND tsug.groupid = " + groupid + " and isactive = true;";
                     client.query(query, function(err, result) {
                         if (res || result.rowCount <= 0) {
                             var status = {
