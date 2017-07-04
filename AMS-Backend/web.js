@@ -112,6 +112,22 @@ app.get('/user/active/:apikey/:userid', function(request, response) {
         }
     });
 });
+//user secretary check
+app.get('/user/sec/check/:apikey/:userid/:secid', function(request, response) {
+    var value = request.params.apikey;
+    apiCheck.checkAPI(value, function(res) {
+        if (res) {
+            var users = require('./User/user');
+            users.userSecCheck(request, response);
+        } else {
+            var status = {
+                'status': res,
+                'error': 'api key invalid'
+            };
+            response.json(status);
+        }
+    });
+});
 
 
 //group api

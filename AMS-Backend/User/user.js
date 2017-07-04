@@ -248,6 +248,26 @@ var frgPas = function(request, response) {
         }
     });
 };
+
+var userSecCheck = function(request, response) {
+    var userid = request.params.userid;
+    var secid = request.params.secid;
+    var query = "SELECT userid FROM tbl_user_secretary_group WHERE secretaryid = " + secid + " AND userid = " + userid + ";"
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                'status': false,
+                'error': 'Invalid Userid and Secretary id'
+            };
+        } else {
+            var status = {
+                'status': true
+            }
+        }
+        response.json(status);
+    });
+};
+module.exports.userSecCheck = userSecCheck;
 module.exports.forgotPassword = frgPas;
 module.exports.blockuser = block;
 module.exports.checkuser = auth;
