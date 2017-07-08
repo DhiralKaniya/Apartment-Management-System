@@ -1,0 +1,14 @@
+1) Insert Event
+-https://afternoon-oasis-93157.herokuapp.com/Event/Secretary/Insert/5eb63bbbe01eeed093cb22bb8f5acdc3/title/description/date/time/place/status/1
+    paramter :- title,description,date(dd-mm-yyyy),time,place(clubhouse,ground),status(upcomming,past,block),Secretaryid(1)
+
+2) Search Event From Secretary 
+-https://afternoon-oasis-93157.herokuapp.com/Event/Secretary/Search/5eb63bbbe01eeed093cb22bb8f5acdc3/secid
+    (use secid = 1)
+
+3) Search Event From User
+-https://afternoon-oasis-93157.herokuapp.com/Event/User/Search/5eb63bbbe01eeed093cb22bb8f5acdc3/secid
+    (use secid = 1)
+
+4) Update Event
+-https://afternoon-oasis-93157.herokuapp.com/Event/Secretary/update/5eb63bbbe01eeed093cb22bb8f5acdc3/eventid/updated title/update description/update date/update time/update place/update status/Secretaryid

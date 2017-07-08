@@ -1,0 +1,13 @@
+1) Insert new News
+
+-https://afternoon-oasis-93157.herokuapp.com/News/Secretary/insert/5eb63bbbe01eeed093cb22bb8f5acdc3/title/descripiton/date/secretaryid
+    -params :- title,descripiton,date,secretaryid
+
+2)Update News
+
+-https://afternoon-oasis-93157.herokuapp.com/News/Secretary/update/5eb63bbbe01eeed093cb22bb8f5acdc3/news id/upd title/upd descripiton/upd date/upd status/secid
+    -params :- news id,update title,update descripiton,update date,update status(True,false),secretaryid
+
+3)Search News
+-https://afternoon-oasis-93157.herokuapp.com/News/Search/5eb63bbbe01eeed093cb22bb8f5acdc3/secretaryid   
+    -params :- secretaryid

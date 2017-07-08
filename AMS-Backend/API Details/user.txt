@@ -41,3 +41,10 @@ parameter sequence after active
 
 6 :- User from secretaryid
 -https://afternoon-oasis-93157.herokuapp.com/user/secfind/5eb63bbbe01eeed093cb22bb8f5acdc3/1
+
+
+7 :- User update pin number
+-https://afternoon-oasis-93157.herokuapp.com/user/updpin/5eb63bbbe01eeed093cb22bb8f5acdc3/userid/pin number
+
+8 :- User get userid by username
+-https://afternoon-oasis-93157.herokuapp.com/user/srchid/5eb63bbbe01eeed093cb22bb8f5acdc3/username

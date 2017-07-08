@@ -65,7 +65,25 @@ var scheck = function(request, response) {
         }
     });
 };
-
+var serSecByid = function(request, response) {
+    var secid = request.params.secid;
+    var query = "SELECT apartmentname,secretaryname FROM tbl_secretary WHERE secretaryid = " + secid + "";
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                status: false,
+                error: err
+            };
+        } else {
+            var status = {
+                status: true,
+                secretary: result.rows
+            }
+        }
+        response.json(status);
+    });
+};
 module.exports.secretaryInsert = sins;
 module.exports.secretarySearch = sser;
 module.exports.secretaryCheck = scheck;
+module.exports.secretarySearchById = serSecByid;

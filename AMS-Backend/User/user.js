@@ -18,7 +18,7 @@ var reg = function(request, response) {
     var groupid = request.params.groupid;
     var secid = request.params.secid;
 
-    var userexistQuery = "SELECT * FROM tbl_user where username = '" + username + "' OR pin = " + pin + " OR email = '" + email + "'";
+    var userexistQuery = "SELECT * FROM tbl_user where username = '" + username + "' OR email = '" + email + "'";
     client.query(userexistQuery, function(err, result) {
         if (result.rowCount > 0 || err) {
             var status = {
@@ -26,44 +26,76 @@ var reg = function(request, response) {
                 'error': 'user already exist'
             };
             response.json(status);
-        }
-    });
-    var query1 = "INSERT INTO tbl_user(username,pin,firstname,lastname,contact1,contact2,gender,no_of_mem,flat_no,isactive,validtoken,email) values('" + username + "'," + pin + ",'" + firstname + "','" + lastname + "','" + contact1 + "','" + contact2 + "','" + gender + "'," + members + ",'" + flatno + "'," + true + ",'" + token + "','" + email + "') RETURNING userid";
-    client.query(query1, function(err, result, fields) {
-        if (err) {
-            var status = {
-                'status': false,
-                'error place': 'insertion in user',
-                'error': err
-            }
-            response.json(status);
         } else {
-            var user = result.rows[0];
-            var query2 = "INSERT INTO tbl_user_role values(" + user.userid + "," + 12 + ")";
-            client.query(query2, function(err, result) {
+            var query1 = "INSERT INTO tbl_user(username,pin,firstname,lastname,contact1,contact2,gender,no_of_mem,flat_no,isactive,validtoken,email) values('" + username + "'," + pin + ",'" + firstname + "','" + lastname + "','" + contact1 + "','" + contact2 + "','" + gender + "'," + members + ",'" + flatno + "'," + true + ",'" + token + "','" + email + "') RETURNING userid";
+            client.query(query1, function(err, result, fields) {
                 if (err) {
                     var status = {
                         'status': false,
-                        'error place': 'insertion in user-role',
+                        'error place': 'insertion in user',
                         'error': err
                     }
                     response.json(status);
                 } else {
-                    var query3 = "INSERT INTO tbl_user_secretary_group values(" + user.userid + "," + secid + "," + groupid + ")";
-                    client.query(query3, function(err, result) {
+                    var user = result.rows[0];
+                    var query2 = "INSERT INTO tbl_user_role values(" + user.userid + "," + 12 + ")";
+                    client.query(query2, function(err, result) {
                         if (err) {
                             var status = {
                                 'status': false,
-                                'error place': 'insertion in user-secretory-group',
+                                'error place': 'insertion in user-role',
                                 'error': err
                             }
+                            response.json(status);
                         } else {
-                            var status = {
-                                'status': true,
-                                'userid': user.userid
-                            }
+                            var query3 = "INSERT INTO tbl_user_secretary_group values(" + user.userid + "," + secid + "," + groupid + ")";
+                            client.query(query3, function(err, result) {
+                                if (err) {
+                                    var status = {
+                                        'status': false,
+                                        'error place': 'insertion in user-secretory-group',
+                                        'error': err
+                                    }
+                                } else {
+                                    var status = {
+                                        'status': true,
+                                        'userid': user.userid
+                                    }
+                                }
+                                // var nodemailer = require('nodemailer');
+                                // // var smtpTransport = require('nodemailer-smtp-transport');
+
+                                // var transporter = nodemailer.createTransport({
+                                //     service: 'Gmail',
+                                //     auth: {
+                                //         user: 'dhiralkaniya3146@gmail.com',
+                                //         pass: 'funny143'
+                                //     }
+                                // });
+                                // ///console.log(email);
+                                // var mailOptions = {
+                                //     from: '"Dhiral Kaniya "<dhiralkaniya789@gmail.com>',
+                                //     to: 'dhiralkaniya3146@gmail.com',
+                                //     subject: 'Sending Email using Node.js',
+                                //     text: 'That was easy!',
+                                //     html: '<h1>Testing Done</h1>'
+                                // };
+                                // transporter.sendMail(mailOptions, function(error, info) {
+                                //     if (error) {
+                                //         response.json(error);
+                                //         //console.log(error);
+                                //     } else {
+                                //         console.log('Email sent: ');
+                                //     }
+                                // });
+                                var date = new Date();
+                                var displaydate = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+
+                                var News = require('../News/news');
+                                News.addNewsFunction('Welcome New Member ', username + ' Join the society', displaydate, secid, 'User');
+                                response.json(status);
+                            });
                         }
-                        response.json(status);
                     });
                 }
             });
@@ -177,6 +209,8 @@ var auth = function(request, response) {
 //block user
 var block = function(request, response) {
         var userid = request.params.userid;
+        var secid = request.params.secid;
+        var username = request.params.username;
         var query = "UPDATE tbl_user SET isactive = false WHERE userid = '" + userid + "'";
         client.query(query, function(err, result) {
             if (err || result.rowCount <= 0) {
@@ -190,12 +224,19 @@ var block = function(request, response) {
                     'status': 'true'
                 }
             }
+            var date = new Date();
+            var displaydate = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+
+            var News = require('../News/news');
+            News.addNewsFunction('FlatHolder Leave', username + ' is leave from out society', displaydate, secid, 'User');
             response.json(status);
         })
     }
     //active user
 var active = function(request, response) {
     var userid = request.params.userid;
+    var secid = request.params.secid;
+    var username = request.params.username;
     var query = "UPDATE tbl_user SET isactive = true WHERE userid = '" + userid + "'";
     client.query(query, function(err, result) {
         if (err || result.rowCount <= 0) {
@@ -209,6 +250,11 @@ var active = function(request, response) {
                 'status': 'true'
             }
         }
+        var date = new Date();
+        var displaydate = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+
+        var News = require('../News/news');
+        News.addNewsFunction('FlatHolder Rejoin ', username + ' Join the society again.!!', displaydate, secid, 'User');
         response.json(status);
     })
 }
@@ -248,7 +294,17 @@ var frgPas = function(request, response) {
         }
     });
 };
-
+var userUpdToke = function(request, response) {
+    var userid = request.params.userid;
+    var token = request.params.token;
+    var query = "UPDATE tbl_user SET validtoken = '" + token + "' WHERE userid = " + userid + "";
+    client.query(query, function(err, result) {
+        var status = {
+            status: true,
+        };
+        response.json(status);
+    });
+};
 var userSecCheck = function(request, response) {
     var userid = request.params.userid;
     var secid = request.params.secid;
@@ -267,6 +323,43 @@ var userSecCheck = function(request, response) {
         response.json(status);
     });
 };
+var usercheckByName = function(request, response) {
+    var username = request.params.username;
+    var query = "SELECT userid FROM tbl_user where username = '" + username + "'";
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                status: false,
+                error: err
+            }
+        } else {
+            var status = {
+                status: true,
+                userid: result.rows[0].userid
+            }
+        }
+        response.json(status);
+    });
+};
+var updatePass = function(request, response) {
+    var pin = request.params.pin;
+    var userid = request.params.userid;
+    var query = "UPDATE tbl_user SET pin = '" + pin + "' WHERE userid = " + userid + "";
+    client.query(query, function(err, result) {
+        if (err || result.rowCount <= 0) {
+            var status = {
+                status: false,
+                error: err
+            }
+        } else {
+            var status = {
+                status: true,
+                result: result
+            }
+        }
+        response.json(status);
+    });
+};
 module.exports.userSecCheck = userSecCheck;
 module.exports.forgotPassword = frgPas;
 module.exports.blockuser = block;
@@ -275,3 +368,6 @@ module.exports.registration = reg;
 module.exports.activeuser = active;
 module.exports.updateuser = upd;
 module.exports.secretaryuser = secUser;
+module.exports.updateToken = userUpdToke;
+module.exports.usercheckbyname = usercheckByName;
+module.exports.userupdpin = updatePass;

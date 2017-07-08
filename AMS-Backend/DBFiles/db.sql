@@ -78,3 +78,29 @@ CREATE TABLE tbl_maintenance_user(
 	paidby varchar(10),
 	primary key(maintenanceid,userid)
 );
+//tbl_event
+CREATE TABLE tbl_event(
+	eventid SERIAL primary key,
+	title varchar(20),
+	description varchar(100),
+	edate varchar(20),
+	place varchar(20),
+	etime varchar(20),
+	status varchar(10),
+	secretaryid int references tbl_secretary(secretaryid)
+);
+ALTER TABLE tbl_event ADD COLUMN image varchar(200) default null;
+
+//tbl_news
+CREATE TABLE tbl_news(
+	newsid SERIAL primary key,
+	title varchar(20),
+	description varchar(100),
+	ndate varchar(20),
+	secretaryid int references tbl_secretary(secretaryid)
+);
+ALTER TABLE tbl_news ADD COLUMN status boolean;
+ALTER TABLE tbl_event ADD COLUMN image varchar(200) default null;
+ALTER TABLE tbl_news ADD COLUMN ntype varchar(100);
+ALTER TABLE tbl_news ALTER COLUMN title type varchar(100);
+ALTER TABLE tbl_news ALTER COLUMN ndate type varchar(100);

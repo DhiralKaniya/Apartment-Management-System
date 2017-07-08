@@ -1,5 +1,6 @@
 var dbConnect = require('../DBFiles/dbConfig.js');
 var client = dbConnect.myconnection;
+var FCM = require('../FCM/fcm_config');
 
 var genMain = function(request, response) {
     var secid = request.params.secid;
@@ -38,6 +39,7 @@ var genMain = function(request, response) {
                             while (i < res.length) {
                                 //console.log(res[i].userid);
                                 var query = "INSERT INTO tbl_maintenance_user(maintenanceid,userid,status,paidby)values(" + maintenanceid + "," + res[i].userid + ",false,'Not Paid');"
+                                    //console.log(query);
                                 client.query(query, function(err) {
                                     if (err) {
                                         console.log("error at" + i);
@@ -45,6 +47,16 @@ var genMain = function(request, response) {
                                 });
                                 i++;
                             }
+                            var date = new Date();
+                            var displaydate = date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+
+                            var News = require('../News/news');
+                            News.addNewsFunction('Maintenance ' + duration, 'Manitenance for ' + duration + ' has been generated..!!', displaydate, secid, 'Manitenance');
+
+                            var FCM = require('../FCM/fcm_config.js');
+                            var topic = secid + "-" + groupid;
+                            var message = "Maintenance for " + duration + " has been generated";
+                            FCM.sendMessageToGroup(topic, message);
                             var status = {
                                 'status': true,
                             };
@@ -107,6 +119,12 @@ var takMaintenance = function(request, response) {
                 'error': "No Record Found"
             }
         } else {
+            var query = "SELECT validtoken FROM tbl_user where userid = " + userid + " ";
+            client.query(query, function(err, result) {
+                var row = result.rows;
+                var token = row[0].validtoken;
+                FCM.sendNotificationToIndividual(token, 'Message');
+            });
             var status = {
                 'status': true
             }
