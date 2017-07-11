@@ -9,3 +9,4 @@ Apartment Management System basically manage the apartment at one place. This ap
 2) Database :- [PostgreSql](https://www.postgresql.org/)
 3) Web-Hosting Server :- [Heroku](https://dashboard.heroku.com/)
 4) Database Hosting Server :- [Amazonawas](https://aws.amazon.com/)
+5) Firebase Cloud Messaging :- [FCM](https://console.firebase.google.com/project/apartment-management-sys-e96ee/notification)
